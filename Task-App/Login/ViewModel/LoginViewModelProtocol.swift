@@ -9,5 +9,8 @@ import Foundation
 
 /// Protocol used to create login view model.
 protocol LoginViewModelProtocol {
-    
+    /// The email of the user.
+    var email: String {get set}
+    /// The password of the user.
+    var password: String {get set}
 }

@@ -9,5 +9,6 @@ import Foundation
 
 @Observable
 class LoginViewModel: LoginViewModelProtocol {
-    
+    var email = ""
+    var password = ""
 }
