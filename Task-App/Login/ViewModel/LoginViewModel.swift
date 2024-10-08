@@ -8,6 +8,6 @@
 import Foundation
 
 @Observable
-class LoginViewModel: ObservableObject {
+class LoginViewModel: LoginViewModelProtocol {
     
 }
