@@ -10,13 +10,11 @@ import Foundation
 
 /// A protocol that defines the requirements for a login service.
 ///
-/// The protocol defines necessary properties for encoding and decoding json files.
+/// The protocol define necessary property for encoding json files.
 /// It also provide a method used to login the user.
 protocol LoginServiceProtocol {
     // MARK: Properties
     
-    /// Property used to decode json data.
-    var decoder: JSONDecoder {get}
     /// Property used to encode json data.
     var encoder: JSONEncoder {get}
     

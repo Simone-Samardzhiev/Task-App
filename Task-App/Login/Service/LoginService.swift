@@ -13,14 +13,12 @@ actor LoginService: LoginServiceProtocol {
     // MARK: Properties
     
     let encoder: JSONEncoder
-    let decoder: JSONDecoder
     
     // MARK: Initializer
     
     /// Default initializer.
     init() {
         self.encoder = JSONEncoder()
-        self.decoder = JSONDecoder()
     }
     
     // MARK: Method
