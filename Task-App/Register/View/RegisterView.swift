@@ -31,5 +31,8 @@ struct RegisterView: View {
             .navigationBarBackButtonHidden()
             .navigationTitle("Register")
         }
+        .onDisappear {
+            registerViewModel.resetValues()
+        }
     }
 }

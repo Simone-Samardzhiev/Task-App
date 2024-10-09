@@ -37,4 +37,10 @@ class RegisterViewModel: RegisterViewModelProtocol {
         let regex = try! Regex(#"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[_@$!%*?&#])[A-Za-z\d_@$!%*?&#]{8,}$"#)
         return password.contains(regex)
     }
+    
+    func resetValues() {
+        self.email = ""
+        self.password = ""
+        self.confirmPassword = ""
+    }
 }

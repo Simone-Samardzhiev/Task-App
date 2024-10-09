@@ -33,4 +33,7 @@ protocol RegisterViewModelProtocol {
     /// Method that will check if the password is strong enough.
     /// - Returns: True if the password is strong otherwise false.
     func checkPassword() -> Bool
+    
+    /// Method that will reset the values of the email, password and confirm password.
+    func resetValues()
 }
