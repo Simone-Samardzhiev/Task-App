@@ -11,7 +11,7 @@ import SwiftUI
 /// View used to enter an email.
 struct EmailField: View {
     /// The email that will be entered.
-    @Binding var email: String
+    @Binding private var email: String
     
     
     /// Default initializer.

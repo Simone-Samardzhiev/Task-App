@@ -13,7 +13,7 @@ struct PasswordField: View {
     /// The password that will be entered.
     @Binding private var password: String
     /// Variable used to show the password.
-    @State var showPassword: Bool
+    @State private var showPassword: Bool
     
     /// Default initializer.
     /// - Parameter password: The password that will entered
