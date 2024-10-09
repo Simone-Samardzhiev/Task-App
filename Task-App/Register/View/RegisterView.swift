@@ -10,11 +10,25 @@ import SwiftUI
 
 /// View used to register 
 struct RegisterView: View {
+    /// Register view model,
+    @State private var registerViewModel: RegisterViewModel
+    
+    /// Default initializer.
+    init() {
+        let service = RegisterService()
+        self.registerViewModel = RegisterViewModel(service: service)
+    }
+    
     var body: some View {
         GeometryReader { geometry in
             VStack {
-                
+                EmailField($registerViewModel.email)
+                PasswordField($registerViewModel.password)
+                PasswordField($registerViewModel.confirmPassword)
             }
+            .padding(.top, geometry.size.height / 3)
+            .navigationBarBackButtonHidden()
+            .navigationTitle("Register")
         }
     }
 }
