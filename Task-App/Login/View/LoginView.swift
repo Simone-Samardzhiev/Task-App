@@ -10,7 +10,13 @@ import SwiftUI
 /// View used to login.
 struct LoginView: View {
     /// Login view model.
-    @State var loginViewModel = LoginViewModel()
+    @State private var loginViewModel: LoginViewModel
+    
+    /// Default initializer.
+    init () {
+        let service = LoginService()
+        self.loginViewModel = LoginViewModel(service: service)
+    }
     
     var body: some View {
         NavigationStack {
