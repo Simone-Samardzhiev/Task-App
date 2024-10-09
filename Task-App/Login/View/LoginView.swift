@@ -9,13 +9,16 @@ import SwiftUI
 
 /// View used to log in.
 struct LoginView: View {
-    @State var loginViewModel: LoginViewModelProtocol = LoginViewModel()
+    @State var loginViewModel = LoginViewModel()
     
     var body: some View {
         NavigationStack {
             GeometryReader { geometry in
                 VStack {
+                    EmailField($loginViewModel.email)
                 }
+                .padding(.top, geometry.size.height / 3)
+                .environment(loginViewModel)
                 .navigationTitle("Login")
             }
         }
