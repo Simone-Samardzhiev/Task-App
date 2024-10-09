@@ -15,13 +15,15 @@ class RegisterViewModel: RegisterViewModelProtocol {
     var email: String
     var password: String
     var confirmPassword: String
+    var service: RegisterServiceProtocol
     
     // MARK: Initializer
     
-    init() {
+    init(service: RegisterServiceProtocol) {
         self.email = ""
         self.password = ""
         self.confirmPassword = ""
+        self.service = service
     }
     
     // MARK: Methods

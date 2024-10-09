@@ -19,8 +19,10 @@ protocol RegisterViewModelProtocol {
     var email: String { get }
     /// Variable storing the password of the user.
     var password: String { get }
-    /// Variable storing the
+    /// Variable storing the second password used to confirm they are the same.
     var confirmPassword: String { get }
+    /// Service used to register.
+    var service: RegisterServiceProtocol { get }
     
     // MARK: Methods
     
