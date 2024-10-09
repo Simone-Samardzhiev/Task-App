@@ -14,12 +14,15 @@ struct PasswordField: View {
     @Binding private var password: String
     /// Variable used to show the password.
     @State private var showPassword: Bool
+    /// Variable used to apply or remove padding.
+    let withPadding: Bool
     
     /// Default initializer.
     /// - Parameter password: The password that will entered
-    init(_ password: Binding<String>) {
+    init(_ password: Binding<String>, withPadding: Bool = true) {
         self._password = password
         self.showPassword = false
+        self.withPadding = withPadding
     }
     
     var body: some View {
@@ -47,6 +50,6 @@ struct PasswordField: View {
                 .frame(height: 1)
         }
         .padding(.horizontal, CGFloat.paddingValue)
-        .padding(.bottom, CGFloat.paddingValue)
+        .padding(.bottom, withPadding ? CGFloat.paddingValue : 0)
     }
 }
