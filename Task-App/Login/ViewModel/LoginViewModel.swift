@@ -24,4 +24,10 @@ class LoginViewModel: LoginViewModelProtocol {
         self.password = ""
         self.service = service
     }
+    
+    // MARK: Methods
+    func resetValues() {
+        self.email = ""
+        self.password = ""
+    }
 }

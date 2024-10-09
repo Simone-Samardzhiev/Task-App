@@ -31,6 +31,9 @@ struct LoginView: View {
                 .environment(loginViewModel)
                 .navigationTitle("Login")
             }
+            .onDisappear {
+                loginViewModel.resetValues()
+            }
         }
     }
 }

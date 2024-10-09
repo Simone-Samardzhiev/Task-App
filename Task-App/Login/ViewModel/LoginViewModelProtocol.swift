@@ -18,4 +18,9 @@ protocol LoginViewModelProtocol {
     var password: String {get}
     /// Service used to login.
     var service: LoginServiceProtocol {get}
+    
+    // MARK: Methods
+    /// Method that will reset the values of email and password
+    func resetValues()
+    
 }
