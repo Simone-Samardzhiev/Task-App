@@ -9,6 +9,7 @@ import SwiftUI
 
 /// View used to log in.
 struct LoginView: View {
+    /// Login view model.
     @State var loginViewModel = LoginViewModel()
     
     var body: some View {
