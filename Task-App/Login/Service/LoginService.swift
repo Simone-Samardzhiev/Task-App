@@ -32,12 +32,12 @@ actor LoginService: LoginServiceProtocol {
         do {
             userData = try encoder.encode(user) // Encode the user
         } catch {
-            throw LoginError.errorEncodingData // Error if the user model fail to encode
+            throw LoginError.errorEncodingData // Error if the user model fails to encode
         }
         
-        // Create the url
+        // Create URL
         guard let url = URL(string: "http://localhost:8080/users/login") else {
-            throw LoginError.invalidURL // Error if the url couldn't be created
+            throw LoginError.invalidURL // Error if the URL is invalid
         }
         
         // Create request
@@ -54,9 +54,9 @@ actor LoginService: LoginServiceProtocol {
             throw LoginError.unknownError // Error if there was an unknown error
         }
         
-        // Check the response
+        // Check response
         guard let httpResponse = urlResponse as? HTTPURLResponse else {
-            throw LoginError.invalidURLResponse // Error if the response was invalid
+            throw LoginError.invalidURLResponse // Error if the response is invalid
         }
         
         // Check the status code
