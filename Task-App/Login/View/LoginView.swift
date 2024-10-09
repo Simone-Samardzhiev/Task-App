@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-/// View used to log in.
+/// View used to login.
 struct LoginView: View {
     /// Login view model.
     @State var loginViewModel = LoginViewModel()
