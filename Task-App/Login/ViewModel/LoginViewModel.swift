@@ -11,6 +11,17 @@ import Foundation
 /// View model that will manage the log in.
 @Observable
 class LoginViewModel: LoginViewModelProtocol {
-    var email = ""
-    var password = ""
+    // MARK: Properties
+    
+    var email: String
+    var password: String
+    let service: LoginServiceProtocol
+    
+    // MARK: Initializer.
+    
+    init(service: LoginServiceProtocol) {
+        self.email = ""
+        self.password = ""
+        self.service = service
+    }
 }
