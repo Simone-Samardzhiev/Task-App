@@ -24,7 +24,8 @@ struct RegisterView: View {
             VStack {
                 EmailField($registerViewModel.email)
                 PasswordField($registerViewModel.password)
-                PasswordField($registerViewModel.confirmPassword)
+                PasswordField($registerViewModel.confirmPassword, withPadding: false)
+                BackButton()
             }
             .padding(.top, geometry.size.height / 3)
             .navigationBarBackButtonHidden()
