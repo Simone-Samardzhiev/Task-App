@@ -7,6 +7,8 @@
 
 import Foundation
 
+
+/// View model that will manage the log in.
 @Observable
 class LoginViewModel: LoginViewModelProtocol {
     var email = ""
