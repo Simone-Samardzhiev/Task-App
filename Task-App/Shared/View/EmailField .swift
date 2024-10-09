@@ -27,5 +27,6 @@ struct EmailField: View {
                 .frame(height: 1)
         }
         .padding(.horizontal, CGFloat.paddingValue)
+        .padding(.bottom, CGFloat.paddingValue)
     }
 }

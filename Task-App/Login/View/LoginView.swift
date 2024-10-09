@@ -16,6 +16,7 @@ struct LoginView: View {
             GeometryReader { geometry in
                 VStack {
                     EmailField($loginViewModel.email)
+                    PasswordField($loginViewModel.password)
                 }
                 .padding(.top, geometry.size.height / 3)
                 .environment(loginViewModel)
