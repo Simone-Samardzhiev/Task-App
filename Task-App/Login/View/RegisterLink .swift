@@ -19,5 +19,6 @@ struct RegisterLink: View {
             Spacer()
         }
         .padding(.horizontal, CGFloat.paddingValue)
+        .padding(.bottom, CGFloat.paddingValue)
     }
 }
