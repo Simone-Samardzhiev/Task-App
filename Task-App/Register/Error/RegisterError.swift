@@ -6,3 +6,15 @@
 //
 
 import Foundation
+
+
+enum RegisterError : Error {
+    case emailInUse
+    case unknownError
+    case errorEncodingData
+    case invalidURL
+    case notConnected
+    case invalidURLResponse
+    case invalidHTTPStatusCode
+    case invalidDataResponse
+}
