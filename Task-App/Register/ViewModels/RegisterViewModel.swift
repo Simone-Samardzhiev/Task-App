@@ -15,7 +15,8 @@ class RegisterViewModel: RegisterViewModelProtocol {
     var email: String
     var password: String
     var confirmPassword: String
-    var service: RegisterServiceProtocol
+    var state: RegisterState
+    let service: RegisterServiceProtocol
     
     // MARK: Initializer
     
@@ -23,6 +24,7 @@ class RegisterViewModel: RegisterViewModelProtocol {
         self.email = ""
         self.password = ""
         self.confirmPassword = ""
+        self.state = .idle
         self.service = service
     }
     
