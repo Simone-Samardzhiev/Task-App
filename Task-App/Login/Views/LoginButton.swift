@@ -16,7 +16,9 @@ struct LoginButton: View {
     var body: some View {
         if loginViewModel.state.isIdle() {
             Button {
-                
+                Task {
+                    await loginViewModel.login()
+                }
             } label: {
                 Text("Login")
                     .foregroundStyle(Color.primary)
