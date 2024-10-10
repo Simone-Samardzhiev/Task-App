@@ -51,14 +51,14 @@ protocol RegisterViewModelProtocol {
     
     /// Method that will handle all register error types.
     ///
-    /// It will update the UI to handle based on the error type.
+    /// It will update the UI based on the error type.
     ///
     /// - Parameter error: The error that was thrown
     func handleRegisterError(error: RegisterError)
     
     /// Method that will handle any unknown errors.
     ///
-    /// It will update the user based on the error.
+    /// It will update the UI based on the error.
     ///
     /// - Parameter error: The error that was thrown.
     func handleUnknownError(error: Error)
