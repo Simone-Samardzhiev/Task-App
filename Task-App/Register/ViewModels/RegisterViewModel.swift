@@ -50,6 +50,10 @@ class RegisterViewModel: RegisterViewModelProtocol {
     }
     
     func register() async {
+        await MainActor.run {
+            changeState(.processing("Registering..."))
+        }
+        
         if !checkEmail() {
             await MainActor.run {
                 changeState(.failure("The email is invalid!"))
@@ -73,6 +77,9 @@ class RegisterViewModel: RegisterViewModelProtocol {
         
         do {
             try await service.register(email: email, password: password)
+            await MainActor.run {
+                changeState(.success("You have been registered!"))
+            }
         } catch let error as RegisterError {
             await MainActor.run {
                 handleRegisterError(error: error)
