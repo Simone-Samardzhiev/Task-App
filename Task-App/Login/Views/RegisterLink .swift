@@ -10,15 +10,19 @@ import SwiftUI
 
 /// Link used to go to registration view.
 struct RegisterLink: View {
+    /// Login view model.
+    @Environment(LoginViewModel.self) var loginViewModel
     
     var body: some View {
-        HStack {
-            NavigationLink("Don't have an account?") {
-                RegisterView()
+        if loginViewModel.state.isFailure() {
+            HStack {
+                NavigationLink("Don't have an account?") {
+                    RegisterView()
+                }
+                Spacer()
             }
-            Spacer()
+            .padding(.horizontal, CGFloat.paddingValue)
+            .padding(.bottom, CGFloat.paddingValue)
         }
-        .padding(.horizontal, CGFloat.paddingValue)
-        .padding(.bottom, CGFloat.paddingValue)
     }
 }

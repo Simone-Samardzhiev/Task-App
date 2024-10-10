@@ -14,17 +14,19 @@ struct LoginButton: View {
     @Environment(LoginViewModel.self) var loginViewModel
     
     var body: some View {
-        Button {
-            
-        } label: {
-            Text("Login")
-                .foregroundStyle(Color.primary)
-                .font(.largeTitle)
-                .padding()
-                .background {
-                    RoundedRectangle(cornerRadius: 10)
-                }
+        if loginViewModel.state.isIdle() {
+            Button {
+                
+            } label: {
+                Text("Login")
+                    .foregroundStyle(Color.primary)
+                    .font(.largeTitle)
+                    .padding()
+                    .background {
+                        RoundedRectangle(cornerRadius: 10)
+                    }
+            }
+            .padding(.horizontal, CGFloat.paddingValue)
         }
-        .padding(.horizontal, CGFloat.paddingValue)
     }
 }
