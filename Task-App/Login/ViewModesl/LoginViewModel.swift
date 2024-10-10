@@ -34,6 +34,7 @@ class LoginViewModel: LoginViewModelProtocol {
     func resetValues() {
         self.email = ""
         self.password = ""
+        self.state = .idle
     }
     
     func login() async {
