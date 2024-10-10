@@ -38,4 +38,24 @@ protocol RegisterViewModelProtocol {
     
     /// Method that will reset the values of the email, password and confirm password.
     func resetValues()
+    
+    /// Method that will register the user.
+    ///
+    /// It will used the service to send the data and handle the error
+    /// that may be thrown to update the UI.
+    func register() async
+    
+    /// Method that will handle all register error types.
+    ///
+    /// It will update the UI to handle based on the error type.
+    ///
+    /// - Parameter error: The error that was thrown
+    func handleRegisterError(error: RegisterError)
+    
+    /// Method that will handle any unknown errors.
+    ///
+    /// It will update the user based on the error.
+    ///
+    /// - Parameter error: The error that was thrown.
+    func handleUnknownError(error: Error)
 }

@@ -16,7 +16,7 @@ class RegisterViewModel: RegisterViewModelProtocol {
     var password: String
     var confirmPassword: String
     var state: RegisterState
-    let service: RegisterServiceProtocol
+    @ObservationIgnored let service: RegisterServiceProtocol
     
     // MARK: Initializer
     
@@ -44,5 +44,62 @@ class RegisterViewModel: RegisterViewModelProtocol {
         self.email = ""
         self.password = ""
         self.confirmPassword = ""
+        self.state = .idle
+    }
+    
+    func register() async {
+        if !checkEmail() {
+            await MainActor.run {
+                state = .failure("The email is invalid!")
+            }
+            return
+        }
+        
+        if password != confirmPassword {
+            await MainActor.run {
+                state = .failure("The passwords do not match!")
+            }
+            return
+        }
+        
+        if !checkPassword() {
+            await MainActor.run {
+                state = .failure("The password is not strong enough!")
+            }
+            return
+        }
+        
+        do {
+            try await service.register(email: email, password: password)
+        } catch let error as RegisterError {
+            await MainActor.run {
+                handleRegisterError(error: error)
+            }
+        } catch {
+            await MainActor.run {
+                handleUnknownError(error: error)
+            }
+        }
+    }
+    
+    func handleRegisterError(error: RegisterError)  {
+        switch error {
+        case .emailInUse:
+            state = .failure("The email is already in use!")
+        case .notConnected:
+            state = .failure("Please check you connection!")
+        default:
+            state = .failure("There was an unknown error!")
+            #if DEBUG
+            print("Unknown error: \(error)")
+            #endif
+        }
+    }
+    
+    func handleUnknownError(error: Error) {
+        state = .failure("There was an unknown error!")
+        #if DEBUG
+        print("Unknown error: \(error)")
+        #endif
     }
 }
