@@ -1,5 +1,5 @@
 //
-//  Task.swift
+//  TaskItem.swift
 //  Task-App
 //
 //  Created by Simone Samardzhiev on 11.10.24.
@@ -12,7 +12,7 @@ import Foundation
 ///
 /// It is used to parse the json data send by the server and also to
 /// display it on the UI.
-struct Task: Codable, Hashable {
+struct TaskItem: Codable, Hashable {
     /// The id of the task.
     let id: UUID
     /// The name of the task.

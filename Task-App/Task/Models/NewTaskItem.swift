@@ -1,5 +1,5 @@
 //
-//  NewTask.swift
+//  NewTaskItem.swift
 //  Task-App
 //
 //  Created by Simone Samardzhiev on 11.10.24.
@@ -11,7 +11,7 @@ import Foundation
 /// Struct representing a task that was created.
 ///
 /// It is used to send new tasks to the server.
-struct NewTask: Encodable {
+struct NewTaskItem: Encodable {
     /// The name of the task.
     let name: String
     /// The description of the task.
