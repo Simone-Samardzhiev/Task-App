@@ -19,4 +19,31 @@ enum ProgressState {
     case processing(String)
     case success(String)
     case failure(String)
+    
+    /// Method that will check if the state is processing.
+    /// - Returns: True if the state is processing otherwise false.
+    func isProcessing() -> Bool {
+        if case .processing = self {
+            return true
+        }
+        return false
+    }
+    
+    /// Method that will check if the state is success.
+    /// - Returns: True if the state is success otherwise false.
+    func isSuccess() -> Bool {
+        if case .success = self {
+            return true
+        }
+        return false
+    }
+    
+    /// Method that will check if the state is failure.
+    /// - Returns: True if the state if failure otherwise false.
+    func isFailure() -> Bool {
+        if case .failure = self {
+            return true
+        }
+        return false
+    }
 }
