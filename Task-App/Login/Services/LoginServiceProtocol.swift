@@ -16,7 +16,7 @@ protocol LoginServiceProtocol {
     // MARK: Properties
     
     /// Property used to encode json data.
-    var encoder: JSONEncoder {get}
+    var encoder: JSONEncoder { get }
     
     // MARK: Methods 
     

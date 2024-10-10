@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 
 /// View model that will manage the log in.
@@ -15,6 +16,7 @@ class LoginViewModel: LoginViewModelProtocol {
     
     var email: String
     var password: String
+    var state: ProgressState
     let service: LoginServiceProtocol
     
     // MARK: Initializer.
@@ -22,6 +24,7 @@ class LoginViewModel: LoginViewModelProtocol {
     init(service: LoginServiceProtocol) {
         self.email = ""
         self.password = ""
+        self.state = .idle
         self.service = service
     }
     
@@ -29,5 +32,11 @@ class LoginViewModel: LoginViewModelProtocol {
     func resetValues() {
         self.email = ""
         self.password = ""
+    }
+    
+    func changeState(_ newState: ProgressState) {
+        withAnimation {
+            state = newState
+        }
     }
 }
