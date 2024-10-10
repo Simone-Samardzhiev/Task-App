@@ -18,6 +18,8 @@ protocol LoginViewModelProtocol {
     var password: String { get }
     /// Variable representing the login state.
     var state: ProgressState { get }
+    /// Variable storing the JWT.
+    var token: String? { get }
     /// Service used to login.
     var service: LoginServiceProtocol { get }
     
@@ -29,4 +31,23 @@ protocol LoginViewModelProtocol {
     /// - Parameter newState: The new state.
     func changeState(_ newState: ProgressState)
     
+    /// Method that will login the user.
+    /// 
+    /// It will send the data using the service
+    /// and handle errors that may be thrown by updating the ui.
+    /// - Returns: Returns the token send by the server.
+    func login() async
+    
+    /// Method that will handle login error.
+    ///
+    /// It will update the UI based on the error type.
+    ///
+    /// - Parameter error: The error that was thrown.
+    func handleLoginError(_ error: LoginError)
+    
+    /// Method that will handle any unknown error.
+    /// - Parameter error: The error that was thrown.
+    ///
+    /// It will update the UI based on the error.
+    func handleUnknownError(_ error: Error)
 }
