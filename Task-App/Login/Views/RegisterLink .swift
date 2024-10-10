@@ -14,7 +14,7 @@ struct RegisterLink: View {
     @Environment(LoginViewModel.self) var loginViewModel
     
     var body: some View {
-        if loginViewModel.state.isFailure() {
+        if loginViewModel.state.isIdle() {
             HStack {
                 NavigationLink("Don't have an account?") {
                     RegisterView()
