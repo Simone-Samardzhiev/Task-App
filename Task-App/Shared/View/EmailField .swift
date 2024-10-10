@@ -23,6 +23,8 @@ struct EmailField: View {
     var body: some View {
         VStack {
             TextField("Email", text: $email)
+                .autocorrectionDisabled()
+                .textInputAutocapitalization(.never)
             Rectangle()
                 .frame(height: 1)
         }

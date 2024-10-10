@@ -28,11 +28,15 @@ struct PasswordField: View {
     var body: some View {
         VStack {
             HStack {
-                if showPassword {
-                    TextField("Password", text: $password)
-                } else {
-                    SecureField("Password", text: $password)
+                Group {
+                    if showPassword {
+                        TextField("Password", text: $password)
+                    } else {
+                        SecureField("Password", text: $password)
+                    }
                 }
+                .autocorrectionDisabled()
+                .textInputAutocapitalization(.never)
                 
                 Button {
                     withAnimation {
