@@ -36,7 +36,7 @@ struct ProgressWidget: View {
             }
             .padding(CGFloat.paddingValue)
             .background {
-                background()
+                backgroundView()
             }
             .padding(.bottom, CGFloat.paddingValue)
             .transition(
@@ -52,8 +52,7 @@ struct ProgressWidget: View {
     /// - Returns: The created view.
     private func backgroundView() -> some View {
         RoundedRectangle(cornerRadius: 20)
-            .fill(Color.white)
-            .shadow(radius: 10)
+            .fill(Color.accentColor)
             .overlay(alignment: .bottom) {
                 if state.isSuccess() || state.isFailure() {
                     indicatorView()
@@ -98,6 +97,7 @@ struct ProgressWidget: View {
             }
         } label: {
             Image(systemName: "xmark")
+                .foregroundStyle(Color.primary)
         }
         .padding()
     }
