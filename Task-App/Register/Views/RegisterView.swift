@@ -26,7 +26,10 @@ struct RegisterView: View {
                 PasswordField($registerViewModel.password)
                 PasswordField($registerViewModel.confirmPassword, withPadding: false)
                 BackButton()
+                RegisterButton()
+                ProgressWidget($registerViewModel.state)
             }
+            .ignoresSafeArea()
             .padding(.top, geometry.size.height / 3)
             .navigationBarBackButtonHidden()
             .navigationTitle("Register")

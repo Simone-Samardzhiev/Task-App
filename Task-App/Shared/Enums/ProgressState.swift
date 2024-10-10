@@ -20,6 +20,15 @@ enum ProgressState {
     case success(String)
     case failure(String)
     
+    /// Method that will check if the state is idle.
+    /// - Returns: True if the state is idle otherwise false.
+    func isIdle() -> Bool {
+        if case .idle = self {
+            return true
+        }
+        return false
+    }
+    
     /// Method that will check if the state is processing.
     /// - Returns: True if the state is processing otherwise false.
     func isProcessing() -> Bool {
