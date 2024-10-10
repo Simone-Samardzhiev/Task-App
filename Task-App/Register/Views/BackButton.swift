@@ -10,16 +10,20 @@ import SwiftUI
 
 /// Button used to go back to login view.
 struct BackButton: View {
+    /// Register view model.
+    @Environment(RegisterViewModel.self) var registerViewModel
     /// Variable used to close the register view.
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        HStack {
-            Button("Have an account?") {
-                dismiss.callAsFunction()
+        if registerViewModel.state.isIdle() {
+            HStack {
+                Button("Have an account?") {
+                    dismiss.callAsFunction()
+                }
+                Spacer()
             }
-            Spacer()
+            .padding(.horizontal, CGFloat.paddingValue)
         }
-        .padding(.horizontal, CGFloat.paddingValue)
     }
 }

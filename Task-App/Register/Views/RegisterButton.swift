@@ -14,19 +14,21 @@ struct RegisterButton: View {
     @Environment(RegisterViewModel.self) var registerViewModel
 
     var body: some View {
-        Button {
-            Task {
-                await registerViewModel.register()
-            }
-        } label: {
-            Text("Register")
-                .foregroundStyle(Color.primary)
-                .font(.largeTitle)
-                .padding()
-                .background {
-                    RoundedRectangle(cornerRadius: 10)
+        if registerViewModel.state.isIdle() {
+            Button {
+                Task {
+                    await registerViewModel.register()
                 }
+            } label: {
+                Text("Register")
+                    .foregroundStyle(Color.primary)
+                    .font(.largeTitle)
+                    .padding()
+                    .background {
+                        RoundedRectangle(cornerRadius: 10)
+                    }
+            }
+            .padding(.horizontal, CGFloat.paddingValue)
         }
-        .padding(.horizontal, CGFloat.paddingValue)
     }
 }
