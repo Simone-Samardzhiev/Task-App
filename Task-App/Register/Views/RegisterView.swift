@@ -27,6 +27,7 @@ struct RegisterView: View {
                 PasswordField($registerViewModel.confirmPassword, withPadding: false)
                 BackButton()
                 RegisterButton()
+                Spacer()
                 ProgressWidget($registerViewModel.state)
             }
             .ignoresSafeArea()
