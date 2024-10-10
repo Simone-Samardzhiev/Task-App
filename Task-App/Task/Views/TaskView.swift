@@ -5,4 +5,14 @@
 //  Created by Simone Samardzhiev on 10.10.24.
 //
 
-import Foundation
+import SwiftUI
+
+
+/// View that will display the tasks.
+struct TaskView: View {
+    var body: some View {
+        VStack {
+            
+        }
+    }
+}

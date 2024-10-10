@@ -26,10 +26,16 @@ struct LoginView: View {
                     PasswordField($loginViewModel.password, withPadding: false)
                     RegisterLink()
                     LoginButton()
+                    Spacer()
+                    ProgressWidget($loginViewModel.state)
                 }
+                .ignoresSafeArea()
                 .padding(.top, geometry.size.height / 3)
                 .environment(loginViewModel)
                 .navigationTitle("Login")
+                .navigationDestination(item: $loginViewModel.token) { token in
+                    TaskView()
+                }
             }
             .onDisappear {
                 loginViewModel.resetValues()
