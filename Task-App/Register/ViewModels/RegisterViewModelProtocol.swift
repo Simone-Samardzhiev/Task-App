@@ -45,6 +45,10 @@ protocol RegisterViewModelProtocol {
     /// that may be thrown to update the UI.
     func register() async
     
+    /// Method that will change the state with animation.
+    /// - Parameter newState: The new state.
+    func changeState(_ newState: ProgressState)
+    
     /// Method that will handle all register error types.
     ///
     /// It will update the UI to handle based on the error type.
