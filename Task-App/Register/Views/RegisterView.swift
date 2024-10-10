@@ -10,7 +10,7 @@ import SwiftUI
 
 /// View used to register 
 struct RegisterView: View {
-    /// Register view model,
+    /// Register view model.
     @State private var registerViewModel: RegisterViewModel
     
     /// Default initializer.
@@ -30,6 +30,7 @@ struct RegisterView: View {
             .padding(.top, geometry.size.height / 3)
             .navigationBarBackButtonHidden()
             .navigationTitle("Register")
+            .environment(registerViewModel)
         }
         .onDisappear {
             registerViewModel.resetValues()
