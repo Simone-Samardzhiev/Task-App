@@ -9,13 +9,14 @@ import Foundation
 
 
 /// View model used by register view.
+@Observable
 class RegisterViewModel: RegisterViewModelProtocol {
     // MARK: Properties
     
     var email: String
     var password: String
     var confirmPassword: String
-    var state: RegisterState
+    var state: ProgressState
     @ObservationIgnored let service: RegisterServiceProtocol
     
     // MARK: Initializer

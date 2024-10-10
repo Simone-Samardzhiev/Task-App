@@ -22,7 +22,7 @@ protocol RegisterViewModelProtocol {
     /// Variable storing the second password used to confirm they are the same.
     var confirmPassword: String { get }
     /// Variable representing the registration state.
-    var state: RegisterState { get set}
+    var state: ProgressState { get set}
     /// Service used to register.
     var service: RegisterServiceProtocol { get }
     
