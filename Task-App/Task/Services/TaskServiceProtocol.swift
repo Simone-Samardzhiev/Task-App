@@ -58,6 +58,9 @@ protocol TaskServiceProtocol: Actor {
     /// - Parameter task: The task that will be updated.
     func updateTask(_ task: TaskItem) async throws
     
-    /// Method that will start a task that will refresh the token.
-    func startRefreshingToken()
+    /// Method that will refresh the token.
+    ///
+    /// The method will send the current token to server and will receive a
+    /// new one.
+    func refreshToken() async
 }
