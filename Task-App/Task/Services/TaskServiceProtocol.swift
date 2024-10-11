@@ -15,14 +15,15 @@ import Foundation
 ///
 /// It defines method for getting, adding, deleting and updating a task.
 protocol TaskServiceProtocol: Actor {
+    // MARK: Properties
     /// Property used to decode json data.
     var decoder: JSONDecoder { get }
     /// Property used to encode json data.
     var encoder: JSONEncoder { get }
     /// The JWT token that was received on login.
     var token: String { get }
-    /// Task that will refresh the token on interval.
-    var refreshTokenTask: Task<Void, Never>? { get }
+    
+    // MARK: Methods
     
     /// Method that will get all tasks of the user.
     ///
