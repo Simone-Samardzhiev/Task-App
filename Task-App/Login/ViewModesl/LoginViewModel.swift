@@ -84,4 +84,9 @@ class LoginViewModel: LoginViewModelProtocol {
             state = newState
         }
     }
+    
+    func closeTaskView(_ withState: ProgressState) {
+        token = nil
+        changeState(withState)
+    }
 }

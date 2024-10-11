@@ -50,4 +50,11 @@ protocol LoginViewModelProtocol {
     ///
     /// It will update the UI based on the error.
     func handleUnknownError(_ error: Error)
+    
+    
+    /// Method that will close the task view.
+    ///
+    /// Method used to close the task window when there was an error or the user logged out.
+    /// - Parameter withState: The state that the task view will close with.
+    func closeTaskView(_ withState: ProgressState)
 }
