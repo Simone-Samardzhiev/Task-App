@@ -62,5 +62,5 @@ protocol TaskServiceProtocol: Actor {
     ///
     /// The method will send the current token to server and will receive a
     /// new one.
-    func refreshToken() async
+    func refreshToken() async throws
 }
