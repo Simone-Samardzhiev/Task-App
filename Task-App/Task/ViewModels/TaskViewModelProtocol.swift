@@ -36,7 +36,7 @@ protocol TaskViewModelProtocol {
     ///
     /// The method will use the service to send a request to the server
     /// and update the UI based on the result
-    func getTasks()
+    func getTasks() async
     
     /// Method that will add a new task.
     /// 
@@ -44,7 +44,7 @@ protocol TaskViewModelProtocol {
     /// and update the UI based on the result.
     ///
     /// - Parameter task: The task that will be added.
-    func addTask(_ task: NewTaskItem)
+    func addTask(_ task: NewTaskItem) async
     
     /// Method that will update an existing task.
     ///
@@ -52,7 +52,7 @@ protocol TaskViewModelProtocol {
     /// and update the UI based on the result.
     ///
     /// - Parameter task: The task that will be updated.
-    func updateTask(_ task: TaskItem)
+    func updateTask(_ task: TaskItem) async
     
     /// Method that will delete a task.
     ///
@@ -60,7 +60,7 @@ protocol TaskViewModelProtocol {
     /// and update the UI based on the result.
     ///
     /// - Parameter task: The task that will be deleted.
-    func deleteTask(_ task: TaskItem)
+    func deleteTask(_ task: TaskItem) async
     
     /// Method that will start a task to refresh the JWT.
     func startRefreshTokenTask()
