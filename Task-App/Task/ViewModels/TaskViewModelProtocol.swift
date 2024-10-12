@@ -62,6 +62,14 @@ protocol TaskViewModelProtocol {
     /// - Parameter task: The task that will be deleted.
     func deleteTask(_ task: TaskItem) async
     
+    /// Method that will handle task error.
+    /// - Parameter error: The error that was thrown.
+    func handleTaskError(_ error: TaskError)
+    
+    /// Method that will handle unknown error.
+    /// - Parameter error: The error that was thrown.
+    func handleUnknownError(_ error: Error)
+    
     /// Method that will start a task to refresh the JWT.
     func startRefreshTokenTask()
     
