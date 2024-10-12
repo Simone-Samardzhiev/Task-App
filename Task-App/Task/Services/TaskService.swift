@@ -63,6 +63,8 @@ actor TaskService: TaskServiceProtocol {
             } catch {
                 throw TaskError.errorDecodingData // Error if the tasks failed to encode
             }
+        case 401:
+            throw TaskError.tokenExpired
         default:
             throw TaskError.invalidHTTPStatusCode // Error if the code was not expected
         }
@@ -107,6 +109,8 @@ actor TaskService: TaskServiceProtocol {
         switch httpResponse.statusCode {
         case 200:
             return
+        case 401:
+            throw TaskError.tokenExpired
         default:
             throw TaskError.invalidHTTPStatusCode // Error if the status code is not expected
         }
@@ -151,6 +155,8 @@ actor TaskService: TaskServiceProtocol {
         switch httpResponse.statusCode {
         case 200:
             return
+        case 401:
+            throw TaskError.tokenExpired
         default:
             throw TaskError.invalidHTTPStatusCode // Error if the status code in not expected.
         }
@@ -195,6 +201,8 @@ actor TaskService: TaskServiceProtocol {
         switch httpResponse.statusCode {
         case 200:
             return
+        case 410:
+            throw TaskError.tokenExpired
         default:
             throw TaskError.invalidHTTPStatusCode // Error if the status code in not expected.
         }
@@ -231,11 +239,13 @@ actor TaskService: TaskServiceProtocol {
         switch httpResponse.statusCode {
         case 200:
             guard let newToken = String(data: dataResponse, encoding: .utf8) else {
-                throw TaskError.errorDecodingData // Error if the task data couldn't be transformed to string
+                throw TaskError.invalidToken // Error if the token data couldn't be transformed to string
             }
             token = newToken
+        case 401:
+            throw TaskError.tokenExpired
         default:
-            throw TaskError.invalidHTTPStatusCode // Error if the status code is not expected 
+            throw TaskError.invalidHTTPStatusCode // Error if the status code is not expected
         }
     }
 }
