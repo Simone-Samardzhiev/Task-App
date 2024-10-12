@@ -21,6 +21,8 @@ protocol TaskViewModelProtocol {
     var completedTasks: [TaskItem] { get }
     /// Tasks that have been deleted.
     var deletedTasks: [TaskItem] { get }
+    /// Variable representing any tasks change state.
+    var state: ProgressState { get }
     /// Task that will refresh the token until the user exit.
     var refreshTokenTask: Task<Void, Error>? { get }
     /// Method that will close the task view and go back to login view with a state.
