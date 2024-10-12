@@ -67,4 +67,8 @@ protocol TaskViewModelProtocol {
     
     /// Method that will stop the task that refresh the JWT.
     func stopRefreshTokenTask()
+    
+    /// Method that will change the state.
+    /// - Parameter newState: Thew new state.
+    func changeState(_ newState: ProgressState)
 }
