@@ -70,13 +70,13 @@ protocol TaskViewModelProtocol {
     /// - Parameter error: The error that was thrown.
     func handleUnknownError(_ error: Error)
     
+    /// Method that will change the state.
+    /// - Parameter newState: Thew new state.
+    func changeState(_ newState: ProgressState)
+    
     /// Method that will start a task to refresh the JWT.
     func startRefreshTokenTask()
     
     /// Method that will stop the task that refresh the JWT.
     func stopRefreshTokenTask()
-    
-    /// Method that will change the state.
-    /// - Parameter newState: Thew new state.
-    func changeState(_ newState: ProgressState)
 }
