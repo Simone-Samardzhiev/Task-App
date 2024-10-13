@@ -22,8 +22,14 @@ struct TaskView: View {
     }
     
     var body: some View {
-        VStack {
-            
+        ScrollView {
+            VStack {
+                TasksLink(text: "Uncompleted tasks", imageName: "archivebox") {
+                    TasksListView(.uncompleted)
+                }
+            }
         }
+        .environment(taskViewModel)
+        .navigationTitle("Tasks")
     }
 }
