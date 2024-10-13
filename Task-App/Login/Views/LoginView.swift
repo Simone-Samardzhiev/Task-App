@@ -34,7 +34,10 @@ struct LoginView: View {
                 .environment(loginViewModel)
                 .navigationTitle("Login")
                 .navigationDestination(item: $loginViewModel.token) { token in
-                    TaskView()
+                    TaskView(
+                        token: token,
+                        closeTaskView: loginViewModel.closeTaskView
+                    )
                 }
             }
             .onDisappear {
