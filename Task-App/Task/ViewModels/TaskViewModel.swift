@@ -34,6 +34,9 @@ class TaskViewModel: TaskViewModelProtocol {
     
     func getTasks() async {
         await MainActor.run {
+            uncompletedTasks.removeAll()
+            completedTasks.removeAll()
+            deletedTasks.removeAll()
             changeState(.processing("Loading tasks"))
         }
         
