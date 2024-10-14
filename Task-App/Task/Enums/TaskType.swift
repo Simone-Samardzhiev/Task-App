@@ -9,7 +9,7 @@ import Foundation
 
 
 /// Enumeration defining type of tasks.
-enum TaskType: String {
+enum TaskType: String, CaseIterable {
     case uncompleted = "Uncompleted tasks"
     case completed = "Completed tasks"
     case deleted = "Deleted tasks"
