@@ -9,51 +9,66 @@ import SwiftUI
 
 
 /// Button to go to uncompleted task list view.
-struct TasksLink<Destination: View>: View {
+struct TasksLink: View {
     /// Task view model.
     @Environment(TaskViewModel.self) var taskViewModel
-    /// The destination of the link.
-    let destination: () -> Destination
-    /// The text displayed on the link.
-    let text: String
-    /// The image name that will be displayed.
-    let imageName: String
+    /// The type of the tasks the link will go to.
+    let taskType: TaskType
     
     /// Default initializer.
     /// - Parameters:
-    ///   - text: The text that will be displayed.
-    ///   - imageName: The image that will be displayed.
-    ///   - destination: The destination of the link.
-    init(text: String, imageName: String, destination: @escaping () -> Destination) {
-        self.text = text
-        self.imageName = imageName
-        self.destination = destination
+    ///   - taskType: The type of the tasks the link will go to.
+    init(taskType: TaskType) {
+        self.taskType = taskType
     }
     
     var body: some View {
         NavigationLink {
-            destination()
+            TasksListView(taskType)
+                .environment(taskViewModel)
         } label: {
             RoundedRectangle(cornerRadius: 20)
                 .fill(Color.accentColor)
                 .frame(height: 100)
                 .overlay(alignment: .topLeading) {
-                    Image(systemName: imageName)
+                    Image(systemName: systemImageName())
                         .padding()
-                        .font(.title2)
+                        .font(.title)
                 }
                 .overlay(alignment: .bottomLeading) {
-                    Text(text)
+                    Text(taskType.rawValue)
                         .padding()
                         .font(.title3)
                 }
                 .overlay(alignment: .topTrailing) {
-                    Text(String(taskViewModel.uncompletedTasks.count))
+                    Text(taskTypeCount())
                         .padding()
                         .font(.title)
                 }
                 .padding(CGFloat.paddingValue)
         }
         .foregroundStyle(Color.primary)
+    }
+    
+    func systemImageName() -> String {
+        return switch taskType {
+        case .uncompleted:
+            "archivebox"
+        case .completed:
+            "checkmark.rectangle.stack"
+        case .deleted:
+            "trash"
+        }
+    }
+    
+    func taskTypeCount() -> String {
+        return switch taskType {
+        case .uncompleted:
+            "\(taskViewModel.uncompletedTasks.count)"
+        case .completed:
+            "\(taskViewModel.completedTasks.count)"
+        case .deleted:
+            "\(taskViewModel.deletedTasks.count)"
+        }
     }
 }
