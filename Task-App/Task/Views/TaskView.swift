@@ -11,7 +11,7 @@ import SwiftUI
 /// View that will display the tasks.
 struct TaskView: View {
     /// Task view model.
-    let taskViewModel: TaskViewModel
+    @State var taskViewModel: TaskViewModel
     
     /// Default initializer.
     /// - Parameters:
@@ -24,12 +24,13 @@ struct TaskView: View {
     var body: some View {
         ScrollView {
             VStack {
-                TasksLink(text: "Uncompleted tasks", imageName: "archivebox") {
-                    TasksListView(.uncompleted)
+                ForEach(TaskType.allCases, id: \.hashValue) { type in
+                    TasksLink(taskType: type)
                 }
             }
+            .environment(taskViewModel)
         }
-        .environment(taskViewModel)
         .navigationTitle("Tasks")
+        .navigationBarBackButtonHidden()
     }
 }
