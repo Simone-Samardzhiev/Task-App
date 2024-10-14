@@ -73,6 +73,7 @@ class TaskViewModel: TaskViewModelProtocol {
         
         do {
             try await service.addTask(task)
+            await getTasks()
             await MainActor.run {
                 changeState(.success("Task added!"))
             }
