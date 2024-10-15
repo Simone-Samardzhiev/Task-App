@@ -28,6 +28,13 @@ struct TaskView: View {
                     TasksLink(taskType: type)
                 }
             }
+            .toolbar {
+                ToolbarItem(placement: .navigation) {
+                    HStack {
+                        addTaskButton()
+                    }
+                }
+            }
             .environment(taskViewModel)
         }
         .navigationTitle("Tasks")
@@ -40,6 +47,15 @@ struct TaskView: View {
                     await taskViewModel.getTasks()
                 }
             }
+        }
+    }
+    
+    func addTaskButton() -> some View {
+        NavigationLink {
+            AddTaskView()
+                .environment(taskViewModel)
+        } label: {
+            Image(systemName: "plus.circle")
         }
     }
 }
