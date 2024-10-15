@@ -99,9 +99,20 @@ class TaskViewModel: TaskViewModelProtocol {
         do {
             try await withThrowingTaskGroup(of: Void.self) { taskGroup in
                 for index in indexSet {
-                    let task = tasks.remove(at: index)
-                    taskGroup.addTask {
-                        try await self.service.deleteTask(task)
+                    switch tasks[index].taskType {
+                    case .deleted:
+                        taskGroup.addTask {
+                            try await self.service.deleteTask(self.tasks[index])
+                        }
+                    default:
+                        await MainActor.run {
+                            self.tasks[index].taskType = .deleted
+                            self.tasks[index].dateDeleted = Date()
+                        }
+                        
+                        taskGroup.addTask {
+                            try await self.service.updateTask(self.tasks[index])
+                        }
                     }
                 }
                 
