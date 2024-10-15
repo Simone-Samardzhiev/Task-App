@@ -22,6 +22,7 @@ struct TasksListView: View {
     }
     
     var body: some View {
+        @Bindable var taskViewModel = taskViewModel
         List {
             switch taskType {
             case .uncompleted:
@@ -36,6 +37,10 @@ struct TasksListView: View {
                 ForEach(taskViewModel.deletedTasks, id: \.hashValue) { task in
                 }
             }
-        }.navigationTitle(taskType.rawValue)
+        }
+        .navigationTitle(taskType.rawValue)
+        .overlay(alignment: .bottom) {
+            ProgressWidget($taskViewModel.state)
+        }
     }
 }
