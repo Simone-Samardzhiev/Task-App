@@ -50,7 +50,7 @@ struct TaskWidget: View {
     
     /// Method that will return a color based on the task priority.
     /// - Returns: The color.
-    func taskColor() -> Color {
+    private func taskColor() -> Color {
         return switch task.priority {
         case .low:
             Color.green

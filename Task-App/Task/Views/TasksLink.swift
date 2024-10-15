@@ -50,7 +50,7 @@ struct TasksLink: View {
         .foregroundStyle(Color.primary)
     }
     
-    func systemImageName() -> String {
+    private func systemImageName() -> String {
         return switch taskType {
         case .uncompleted:
             "archivebox"
