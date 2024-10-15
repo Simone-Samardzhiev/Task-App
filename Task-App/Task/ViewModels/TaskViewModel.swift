@@ -12,9 +12,7 @@ import SwiftUI
 class TaskViewModel: TaskViewModelProtocol {
     // MARK: Properties
     
-    var uncompletedTasks: [TaskItem]
-    var completedTasks: [TaskItem]
-    var deletedTasks: [TaskItem]
+    var tasks: [TaskItem]
     var state: ProgressState
     @ObservationIgnored var taskLoaded: Bool
     @ObservationIgnored var refreshTokenTask: Task<Void, any Error>?
@@ -24,9 +22,7 @@ class TaskViewModel: TaskViewModelProtocol {
     // MARK: Initializer
     
     init(closeTaskView: @escaping (ProgressState) -> Void, service: TaskServiceProtocol) {
-        self.uncompletedTasks = []
-        self.completedTasks = []
-        self.deletedTasks = []
+        self.tasks = []
         self.state = .idle
         self.taskLoaded = false
         self.refreshTokenTask = nil
@@ -35,26 +31,10 @@ class TaskViewModel: TaskViewModelProtocol {
     }
     
     func getTasks() async {
-        await MainActor.run {
-            uncompletedTasks.removeAll()
-            completedTasks.removeAll()
-            deletedTasks.removeAll()
-            changeState(.processing("Loading tasks"))
-        }
-        
         do {
             let tasks = try await service.getTasks()
             await MainActor.run {
-                for task in tasks {
-                    if task.dateDeleted != nil {
-                        deletedTasks.append(task)
-                    } else if task.dateCompleted != nil {
-                        completedTasks.append(task)
-                    } else {
-                        uncompletedTasks.append(task)
-                    }
-                }
-                
+                self.tasks = tasks
                 changeState(.idle)
             }
         } catch let error as TaskError {

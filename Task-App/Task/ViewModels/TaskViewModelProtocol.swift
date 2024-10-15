@@ -15,12 +15,9 @@ import Foundation
 /// It also provide methods for starting and stoping the task that will refresh the token.
 protocol TaskViewModelProtocol {
     // MARK: Properties
-    /// Tasks that haven't been completed.
-    var uncompletedTasks: [TaskItem] { get }
-    /// Tasks that have been completed.
-    var completedTasks: [TaskItem] { get }
-    /// Tasks that have been deleted.
-    var deletedTasks: [TaskItem] { get }
+    
+    /// Array holding all the task.
+    var tasks: [TaskItem] { get }
     /// Variable representing any tasks change state.
     var state: ProgressState { get }
     /// Variable representing if the task are already loaded.
