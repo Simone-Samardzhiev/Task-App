@@ -91,13 +91,22 @@ class TaskViewModel: TaskViewModelProtocol {
         }
     }
     
-    func deleteTask(_ task: TaskItem) async {
+    func deleteTask(_ indexSet: IndexSet) async {
         await MainActor.run {
             changeState(.processing("Deleting task"))
         }
         
         do {
-            try await service.updateTask(task)
+            try await withThrowingTaskGroup(of: Void.self) { taskGroup in
+                for index in indexSet {
+                    let task = tasks.remove(at: index)
+                    taskGroup.addTask {
+                        try await self.service.deleteTask(task)
+                    }
+                }
+                
+                try await taskGroup.waitForAll()
+            }
             await MainActor.run {
                 changeState(.success("Task deleted!"))
             }

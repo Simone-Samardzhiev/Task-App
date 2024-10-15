@@ -54,12 +54,12 @@ protocol TaskViewModelProtocol {
     func updateTask(_ task: TaskItem) async
     
     /// Method that will delete a task.
-    ///
+    /// 
     /// The method will send request to the server with task
     /// and update the UI based on the result.
-    ///
-    /// - Parameter task: The task that will be deleted.
-    func deleteTask(_ task: TaskItem) async
+    /// 
+    /// - Parameter indexSet: Index set of the tasks that will be deleted.
+    func deleteTask(_ indexSet: IndexSet) async
     
     /// Method that will handle task error.
     /// - Parameter error: The error that was thrown.
