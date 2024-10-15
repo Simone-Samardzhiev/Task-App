@@ -24,18 +24,8 @@ struct TasksListView: View {
     var body: some View {
         @Bindable var taskViewModel = taskViewModel
         List {
-            switch taskType {
-            case .uncompleted:
-                ForEach(taskViewModel.uncompletedTasks, id: \.hashValue) { task in
-                    
-                }
-            case .completed:
-                ForEach(taskViewModel.completedTasks, id: \.hashValue) { task in
-                    
-                }
-            case .deleted:
-                ForEach(taskViewModel.deletedTasks, id: \.hashValue) { task in
-                }
+            ForEach(taskViewModel.getTasksByType(taskType), id: \.hashValue) { task in
+                TaskWidget(task)
             }
         }
         .navigationTitle(taskType.rawValue)
