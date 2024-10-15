@@ -16,6 +16,7 @@ class TaskViewModel: TaskViewModelProtocol {
     var completedTasks: [TaskItem]
     var deletedTasks: [TaskItem]
     var state: ProgressState
+    @ObservationIgnored var taskLoaded: Bool
     @ObservationIgnored var refreshTokenTask: Task<Void, any Error>?
     @ObservationIgnored let closeTaskView: (ProgressState) -> Void
     @ObservationIgnored let service: TaskServiceProtocol
@@ -27,6 +28,7 @@ class TaskViewModel: TaskViewModelProtocol {
         self.completedTasks = []
         self.deletedTasks = []
         self.state = .idle
+        self.taskLoaded = false
         self.refreshTokenTask = nil
         self.closeTaskView = closeTaskView
         self.service = service
@@ -139,7 +141,7 @@ class TaskViewModel: TaskViewModelProtocol {
         default:
             closeTaskView(.failure("There was an unknown error!"))
 #if DEBUG
-            print(error)
+            print("Unknown error in task error: \(error)")
 #endif
         }
     }
@@ -147,7 +149,7 @@ class TaskViewModel: TaskViewModelProtocol {
     func handleUnknownError(_ error: any Error) {
         closeTaskView(.failure("There was an unknown error!"))
 #if DEBUG
-        print(error)
+        print("Unknown error\(error)")
 #endif
     }
     
