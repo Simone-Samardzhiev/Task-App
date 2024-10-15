@@ -32,5 +32,14 @@ struct TaskView: View {
         }
         .navigationTitle("Tasks")
         .navigationBarBackButtonHidden()
+        .onAppear {
+            taskViewModel.startRefreshTokenTask()
+            if !taskViewModel.taskLoaded {
+                taskViewModel.taskLoaded = true
+                Task {
+                    await taskViewModel.getTasks()
+                }
+            }
+        }
     }
 }
