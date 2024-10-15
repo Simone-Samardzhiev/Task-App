@@ -41,7 +41,7 @@ struct TasksLink: View {
                         .font(.title3)
                 }
                 .overlay(alignment: .topTrailing) {
-                    Text(taskTypeCount())
+                    Text(String(taskViewModel.getTasksByType(taskType).count))
                         .padding()
                         .font(.title)
                 }
@@ -58,17 +58,6 @@ struct TasksLink: View {
             "checkmark.rectangle.stack"
         case .deleted:
             "trash"
-        }
-    }
-    
-    func taskTypeCount() -> String {
-        return switch taskType {
-        case .uncompleted:
-            "\(taskViewModel.uncompletedTasks.count)"
-        case .completed:
-            "\(taskViewModel.completedTasks.count)"
-        case .deleted:
-            "\(taskViewModel.deletedTasks.count)"
         }
     }
 }
