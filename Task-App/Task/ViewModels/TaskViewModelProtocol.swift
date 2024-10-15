@@ -78,4 +78,9 @@ protocol TaskViewModelProtocol {
     
     /// Method that will stop the task that refresh the JWT.
     func stopRefreshTokenTask()
+    
+    /// Method that will filter the tasks by a type.
+    /// - Parameter taskType: The type used to filter the tasks.
+    /// - Returns: The tasks that have the same type.
+    func getTasksByType(_ taskType: TaskType) -> [TaskItem]
 }

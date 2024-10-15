@@ -159,4 +159,10 @@ class TaskViewModel: TaskViewModelProtocol {
     func stopRefreshTokenTask() {
         refreshTokenTask?.cancel()
     }
+    
+    func getTasksByType(_ taskType: TaskType) -> [TaskItem] {
+        tasks.filter { task in
+            task.taskType == taskType
+        }
+    }
 }
