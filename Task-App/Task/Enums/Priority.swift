@@ -13,7 +13,7 @@ import Foundation
 /// - medium
 /// - high
 /// - vital
-enum Priority: String, Codable {
+enum Priority: String, Codable, CaseIterable {
     case low = "Low"
     case medium = "Medium"
     case high = "High"
