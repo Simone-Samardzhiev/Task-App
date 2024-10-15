@@ -27,4 +27,39 @@ struct TaskItem: Codable, Hashable {
     var dateDeleted: Date?
     /// Date when the task was completed.
     var dateCompleted: Date?
+    /// The type of the task.
+    var taskType: TaskType
+    
+    /// Enumeration with coding key used to encode the file.
+    enum CodingKeys: String, CodingKey {
+        case id
+        case name
+        case description
+        case priority
+        case dueDate
+        case dateDeleted
+        case dateCompleted
+    }
+    
+    /// Initializer from decoder.
+    /// - Parameter decoder: Any decoder.
+    init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        self.id = try container.decode(UUID.self, forKey: .id)
+        self.name = try container.decode(String.self, forKey: .name)
+        self.description = try container.decode(String.self, forKey: .description)
+        self.priority = try container.decode(Priority.self, forKey: .priority)
+        self.dueDate = try container.decode(Date.self, forKey: .dueDate)
+        self.dateDeleted = try container.decodeIfPresent(Date.self, forKey: .dateDeleted)
+        self.dateCompleted = try container.decodeIfPresent(Date.self, forKey: .dateCompleted)
+        
+        if dateDeleted != nil {
+            self.taskType = .deleted
+        } else if dateCompleted != nil {
+            self.taskType = .completed
+        } else {
+            self.taskType = .uncompleted
+        }
+    }
 }
