@@ -13,11 +13,18 @@ import Foundation
 /// It is used to send new tasks to the server.
 struct NewTaskItem: Encodable {
     /// The name of the task.
-    let name: String
+    var name: String
     /// The description of the task.
-    let description: String
+    var description: String
     /// The priority of the task.
-    let priority: Priority
+    var priority: Priority
     /// The date till the task has to be completed.
-    let dueDate: Date
+    var dueDate: Date
+    
+    init() {
+        self.name = ""
+        self.description = ""
+        self.priority = .low
+        self.dueDate = Date()
+    }
 }
