@@ -17,10 +17,12 @@ actor TaskService: TaskServiceProtocol {
     // MARK: Initializer
     
     init(_ token: String) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
         self.decoder = JSONDecoder()
-        self.decoder.dateDecodingStrategy = .iso8601
+        self.decoder.dateDecodingStrategy = .formatted(dateFormatter)
         self.encoder = JSONEncoder()
-        self.encoder.dateEncodingStrategy = .iso8601
+        self.encoder.dateEncodingStrategy = .formatted(dateFormatter)
         self.token = token
     }
     
