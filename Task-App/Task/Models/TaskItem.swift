@@ -62,4 +62,15 @@ struct TaskItem: Codable, Hashable {
             self.taskType = .uncompleted
         }
     }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(name, forKey: .name)
+        try container.encode(description, forKey: .description)
+        try container.encode(priority, forKey: .priority)
+        try container.encode(dueDate, forKey: .dueDate)
+        try container.encode(dateDeleted, forKey: .dateDeleted)
+        try container.encode(dateCompleted, forKey: .dateCompleted)
+    }
 }
