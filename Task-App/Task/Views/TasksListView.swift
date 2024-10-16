@@ -23,14 +23,33 @@ struct TasksListView: View {
     
     var body: some View {
         @Bindable var taskViewModel = taskViewModel
+        let tasks = taskViewModel.getTasksByType(taskType)
         List {
-            ForEach(taskViewModel.getTasksByType(taskType), id: \.hashValue) { task in
+            ForEach(tasks, id: \.hashValue) { task in
                 TaskWidget(task)
+            }
+            .onDelete { indexSet in
+                onDelete(
+                    indexSet: indexSet,
+                    tasks: tasks
+                )
             }
         }
         .navigationTitle(taskType.rawValue)
         .overlay(alignment: .bottom) {
             ProgressWidget($taskViewModel.state)
+        }
+    }
+    
+    func onDelete(indexSet: IndexSet, tasks: [TaskItem]) {
+        Task {
+            await withTaskGroup(of: Void.self) { group in
+                for index in indexSet {
+                    group.addTask {
+                        await taskViewModel.deleteTask(tasks[index])
+                    }
+                }
+            }
         }
     }
 }
