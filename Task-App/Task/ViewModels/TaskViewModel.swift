@@ -31,11 +31,14 @@ class TaskViewModel: TaskViewModelProtocol {
     }
     
     func getTasks() async {
+        await MainActor.run {
+            changeState(.processing("Loading tasks"))
+        }
+        
         do {
-            let tasks = try await service.getTasks()
+            tasks = try await service.getTasks()
             await MainActor.run {
-                self.tasks = tasks
-                changeState(.idle)
+                state = .idle
             }
         } catch let error as TaskError {
             await MainActor.run {
@@ -46,18 +49,18 @@ class TaskViewModel: TaskViewModelProtocol {
                 handleUnknownError(error)
             }
         }
+        
     }
     
     func addTask(_ task: NewTaskItem) async {
         await MainActor.run {
             changeState(.processing("Adding task"))
         }
-        
         do {
             try await service.addTask(task)
-            await getTasks()
+            tasks = try await service.getTasks()
             await MainActor.run {
-                changeState(.success("Task added!"))
+                state = .success("Task added")
             }
         } catch let error as TaskError {
             await MainActor.run {
@@ -78,7 +81,7 @@ class TaskViewModel: TaskViewModelProtocol {
         do {
             try await service.updateTask(task)
             await MainActor.run {
-                changeState(.success("Task updated!"))
+                changeState(.success("Task updated"))
             }
         } catch let error as TaskError {
             await MainActor.run {
@@ -91,43 +94,53 @@ class TaskViewModel: TaskViewModelProtocol {
         }
     }
     
-    func deleteTask(_ indexSet: IndexSet) async {
+    func deleteTask(_ task: TaskItem) async {
         await MainActor.run {
-            changeState(.processing("Deleting task"))
+            state = .processing("Deleting task")
         }
-        
-        do {
-            try await withThrowingTaskGroup(of: Void.self) { taskGroup in
-                for index in indexSet {
-                    switch tasks[index].taskType {
-                    case .deleted:
-                        taskGroup.addTask {
-                            try await self.service.deleteTask(self.tasks[index])
-                        }
-                    default:
-                        await MainActor.run {
-                            self.tasks[index].taskType = .deleted
-                            self.tasks[index].dateDeleted = Date()
-                        }
-                        
-                        taskGroup.addTask {
-                            try await self.service.updateTask(self.tasks[index])
-                        }
-                    }
+        switch task.taskType {
+        case .completed, .uncompleted:
+            for i in tasks.indices {
+                if tasks[i].id == task.id {
+                    tasks[i].taskType = .deleted
+                    tasks[i].dateDeleted = Date()
                 }
-                
-                try await taskGroup.waitForAll()
             }
-            await MainActor.run {
-                changeState(.success("Task deleted!"))
+            
+            let task = task
+            do {
+                try await service.updateTask(task)
+                await MainActor.run {
+                    changeState(.success("Task deleted"))
+                }
+            } catch let error as TaskError {
+                await MainActor.run {
+                    handleTaskError(error)
+                }
+            } catch {
+                await MainActor.run {
+                    handleUnknownError(error)
+                }
             }
-        } catch let error as TaskError {
-            await MainActor.run {
-                handleTaskError(error)
+        case .deleted:
+            tasks.removeAll { item in
+                item.id == task.id
             }
-        } catch {
-            await MainActor.run {
-                handleUnknownError(error)
+            
+            let task = task
+            do {
+                try await service.deleteTask(task)
+                await MainActor.run {
+                    changeState(.success("Task deleted"))
+                }
+            } catch let error as TaskError {
+                await MainActor.run {
+                    handleTaskError(error)
+                }
+            } catch {
+                await MainActor.run {
+                    handleUnknownError(error)
+                }
             }
         }
     }

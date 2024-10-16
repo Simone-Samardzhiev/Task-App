@@ -44,7 +44,7 @@ protocol TaskViewModelProtocol {
     ///
     /// - Parameter task: The task that will be added.
     func addTask(_ task: NewTaskItem) async
-    
+
     /// Method that will update an existing task.
     ///
     /// The method will send request to the server with the task
@@ -59,11 +59,11 @@ protocol TaskViewModelProtocol {
     /// and update the UI based on the result.
     /// 
     /// - Parameter indexSet: Index set of the tasks that will be deleted.
-    func deleteTask(_ indexSet: IndexSet) async
+    func deleteTask(_ task: TaskItem) async
     
     /// Method that will handle task error.
     /// - Parameter error: The error that was thrown.
-    func handleTaskError(_ error: TaskError)
+    func handleTaskError(_ error: TaskError) async
     
     /// Method that will handle unknown error.
     /// - Parameter error: The error that was thrown.
