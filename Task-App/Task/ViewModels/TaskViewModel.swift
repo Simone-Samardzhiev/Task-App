@@ -98,28 +98,29 @@ class TaskViewModel: TaskViewModelProtocol {
         await MainActor.run {
             changeState(.processing("Deleting task"))
         }
+        
+        
         switch task.taskType {
         case .completed, .uncompleted:
             for i in tasks.indices {
                 if tasks[i].id == task.id {
                     tasks[i].taskType = .deleted
                     tasks[i].dateDeleted = Date()
-                }
-            }
-            
-            let task = task
-            do {
-                try await service.updateTask(task)
-                await MainActor.run {
-                    changeState(.success("Task deleted"))
-                }
-            } catch let error as TaskError {
-                await MainActor.run {
-                    handleTaskError(error)
-                }
-            } catch {
-                await MainActor.run {
-                    handleUnknownError(error)
+                    
+                    do {
+                        try await service.updateTask(tasks[i])
+                        await MainActor.run {
+                            changeState(.success("Task deleted"))
+                        }
+                    } catch let error as TaskError {
+                        await MainActor.run {
+                            handleTaskError(error)
+                        }
+                    } catch {
+                        await MainActor.run {
+                            handleUnknownError(error)
+                        }
+                    }
                 }
             }
         case .deleted:
@@ -127,7 +128,6 @@ class TaskViewModel: TaskViewModelProtocol {
                 item.id == task.id
             }
             
-            let task = task
             do {
                 try await service.deleteTask(task)
                 await MainActor.run {
