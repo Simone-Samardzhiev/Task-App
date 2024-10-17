@@ -13,7 +13,7 @@ struct TaskWidget: View {
     /// Task view model
     @Environment(TaskViewModel.self) var taskViewModel
     /// Task that will be displayed.
-    let task: TaskItem
+    @State var task: TaskItem
     
     /// Default initializer.
     /// - Parameter task: The task that will be shown.
@@ -46,6 +46,9 @@ struct TaskWidget: View {
                 }
             }
         }
+        .swipeActions(edge: .leading) {
+            swipeActionView()
+        }
     }
     
     /// Method that will return a color based on the task priority.
@@ -60,6 +63,49 @@ struct TaskWidget: View {
             Color.orange
         case .vital:
             Color.red
+        }
+    }
+    
+    func swipeActionView() -> some View {
+        Group {
+            switch task.taskType {
+            case .uncompleted:
+                Button {
+                    task.dateCompleted = Date()
+                    task.taskType = .completed
+                    Task {
+                        await taskViewModel.updateTask(task)
+                    }
+                } label: {
+                    Image(systemName: "checkmark.circle")
+                        .foregroundStyle(Color.primary)
+                }
+                .tint(Color.accentColor)
+            case .completed:
+                Button {
+                    task.dateCompleted = nil
+                    task.taskType = .uncompleted
+                    Task {
+                        await taskViewModel.updateTask(task)
+                    }
+                } label: {
+                    Image(systemName: "checkmark.circle.badge.xmark")
+                        .foregroundStyle(Color.primary)
+                }
+                .tint(Color.accentColor)
+            case .deleted:
+                Button {
+                    task.dateDeleted = nil
+                    task.taskType = .uncompleted
+                    Task {
+                        await taskViewModel.updateTask(task)
+                    }
+                } label: {
+                    Image(systemName: "trash.slash")
+                        .foregroundStyle(Color.primary)
+                }
+                .tint(Color.accentColor)
+            }
         }
     }
 }
