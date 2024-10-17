@@ -28,6 +28,7 @@ class TaskViewModel: TaskViewModelProtocol {
         self.refreshTokenTask = nil
         self.closeTaskView = closeTaskView
         self.service = service
+        startRefreshTokenTask()
     }
     
     func getTasks() async {
@@ -81,6 +82,14 @@ class TaskViewModel: TaskViewModelProtocol {
         do {
             try await service.updateTask(task)
             await MainActor.run {
+                for i in tasks.indices {
+                    if tasks[i].id == task.id {
+                        tasks[i] = task
+                    }
+                }
+            }
+            
+            await MainActor.run {
                 changeState(.success("Task updated"))
             }
         } catch let error as TaskError {
@@ -104,8 +113,10 @@ class TaskViewModel: TaskViewModelProtocol {
         case .completed, .uncompleted:
             for i in tasks.indices {
                 if tasks[i].id == task.id {
-                    tasks[i].taskType = .deleted
-                    tasks[i].dateDeleted = Date()
+                    await MainActor.run {
+                        tasks[i].taskType = .deleted
+                        tasks[i].dateDeleted = Date()
+                    }
                     
                     do {
                         try await service.updateTask(tasks[i])
@@ -124,8 +135,10 @@ class TaskViewModel: TaskViewModelProtocol {
                 }
             }
         case .deleted:
-            tasks.removeAll { item in
-                item.id == task.id
+            await MainActor.run {
+                tasks.removeAll { item in
+                    item.id == task.id
+                }
             }
             
             do {
