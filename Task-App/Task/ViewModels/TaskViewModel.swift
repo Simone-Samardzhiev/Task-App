@@ -96,7 +96,7 @@ class TaskViewModel: TaskViewModelProtocol {
     
     func deleteTask(_ task: TaskItem) async {
         await MainActor.run {
-            state = .processing("Deleting task")
+            changeState(.processing("Deleting task"))
         }
         switch task.taskType {
         case .completed, .uncompleted:
