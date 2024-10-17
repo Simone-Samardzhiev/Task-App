@@ -24,6 +24,7 @@ struct TasksListView: View {
     var body: some View {
         @Bindable var taskViewModel = taskViewModel
         let tasks = taskViewModel.getTasksByType(taskType)
+        
         List {
             ForEach(tasks, id: \.hashValue) { task in
                 TaskWidget(task)
@@ -35,10 +36,11 @@ struct TasksListView: View {
                 )
             }
         }
-        .navigationTitle(taskType.rawValue)
         .overlay(alignment: .bottom) {
             ProgressWidget($taskViewModel.state)
         }
+        .ignoresSafeArea(edges: .bottom)
+        .navigationTitle(taskType.rawValue)
     }
     
     func onDelete(indexSet: IndexSet, tasks: [TaskItem]) {
